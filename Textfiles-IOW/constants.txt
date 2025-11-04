@@ -1,0 +1,537 @@
+! BioCGT constants file
+! *********************
+! properties of constants:
+!   name=           code name of constant
+!   description=    description including unit, default=""
+!   value=          value(s) separated by ";"
+!   dependsOn=      whether this constant varies in time and space, default="none", other possible values: "xyz", "xyzt"
+!   minval=         minimum value for variation (for inverse modelling)
+!   maxval=         maximum value for variation (for inverse modelling)
+!   varphase=       phase in which a parameter is allowed to vary (for inverse modelling) (default=1)
+!   comment=        comment, e.g. how certain this value is, literature,..., default=""
+!   unit=           unit of the constant
+! *************************************************************************************
+name        = critical_stress
+value       = 0.016
+description = critical shear stress for sediment erosion [N/m2]
+comment     = This is only for erosion of the fluffy layer.\\Values of 0.013-0.026 N/m2 were measured in:\\Christiansen, C, K Edelvang, K Emeis, G Graf, S Jähmlich, J Kozuch, M Laima, et al. \\"Material Transport from the Nearshore to the Basinal Environment in the Southern Baltic \\Sea: I. Processes and Mass Estimates." Journal of Marine Systems 35, no. 3-4 (July 1, 2002): \\133-150. doi:10.1016/S0924-7963(02)00126-4.
+***********************
+name        = cya0
+value       = 0.09e-6
+description = seed concentration for diazotroph cyanobacteria [mol/kg]
+***********************
+name        = din_min_lpp
+value       = 1.0e-6
+description = DIN half saturation constant for large-cell phytoplankton growth [mol/kg]
+***********************
+name        = din_min_spp
+value       = 1.6e-7
+description = DIN half saturation constant for small-cell phytoplankton growth [mol/kg]
+***********************
+name        = dip_min_cya
+value       = 1.0e-8
+description = DIP half saturation constant for diazotroph cyanobacteria growth [mol/kg]
+***********************
+name        = din_min_lip
+value       = 1.0e-6
+description = DIN half saturation constant for limnic phytoplankton growth [mol/kg]
+***********************
+name        = epsilon
+value       = 4.5E-17
+description = no division by 0
+***********************
+name        = food_min_zoo
+value       = 4.108e-6
+description = Ivlev phytoplankton concentration for zooplankton grazing [mol/kg]
+***********************
+name        = gamma0
+value       = 0.027
+description = light attentuation parameter (opacity of clear water) [1/m], DO NOT CHANGE NAME gamma0 SINCE THIS NAME WILL BE USED IN THE TEMPLATE
+***********************
+name        = gamma1
+value       = 58.0
+description = light attentuation parameter (opacity of POM containing chlorophyll) [m**2/mol]
+***********************
+name        = gamma2
+value       = 53.2
+description = light attentuation parameter (opacity of POM detritus) [m**2/mol]
+***********************
+name        = gamma3
+value       = 12.6
+description = light attentuation parameter (opacity of DON) [m**2/mol]
+***********************
+name        = h2s_min_po4_liber
+value       = 1.0e-6
+description = minimum h2s concentration for liberation of iron phosphate from the sediment [mol/kg]
+***********************
+name        = ips_threshold
+value       = 0.1
+description = threshold for increased PO4 burial [mol/m**2]
+***********************
+name        = ips_cl
+value       = 20.25e-3
+description = iron phosphate in sediment closure parameter [mol/m2]
+***********************
+name        = k_h2s_no3
+value       = 8.0e5
+description = reaction constant h2s oxidation with no3 [kg/mol/day]
+***********************
+name        = k_h2s_o2
+value       = 8.0e5
+description = reaction constant h2s oxidation with o2 [kg/mol/day]
+***********************
+name        = k_sul_no3
+value       = 2.0e4
+description = reaction constant sul oxidation with no3 [kg/mol/day]
+***********************
+name        = k_sul_o2
+value       = 2.0e4
+description = reaction constant sul oxidation with o2 [kg/mol/day]
+***********************
+name        = light_opt_cya
+value       = 50.0
+description = optimal light for diazotroph cyanobacteria growth [W/m**2]
+***********************
+name        = light_opt_lpp
+value       = 35.0
+description = optimal light for large-cell phytoplankton growth [W/m**2]
+***********************
+name        = light_opt_spp
+value       = 50.0
+description = optimal light for small-cell phytoplankton growth [W/m**2]
+***********************
+name        = light_opt_lip
+value       = 30.0
+description = optimal light for limnic phytoplankton growth [W/m**2]
+***********************
+name        = lip0
+value       = 0.0045e-6
+description = seed concentration for limnic phytoplankton [mol/kg]
+***********************
+name        = lpp0
+value       = 0.0045e-6
+description = seed concentration for large-cell phytoplankton [mol/kg]
+***********************
+name        = no3_min_sed_denit
+value       = 0.1423e-6
+description = nitrate half-saturation concentration for denitrification in the water column [mol/kg]
+***********************
+name        = no3_min_det_denit
+value       = 1.0e-9
+description = minimum no3 concentration for recycling of detritus using nitrate (denitrification)
+***********************
+name        = o2_min_det_resp
+value       = 1.0e-6
+description = oxygen half-saturation constant for detritus recycling [mol/kg]
+***********************
+name        = o2_min_nit
+value       = 3.75e-6
+description = oxygen half-saturation constant for nitrification [mol/kg]
+***********************
+name        = o2_min_po4_retent
+value       = 37.5e-6
+description = oxygen half-saturation concentration for retension of phosphate during sediment denitrification [mol/kg]
+***********************
+name        = o2_min_sed_resp
+value       = 64.952e-6
+description = oxygen half-saturation constant for recycling of sediment detritus using oxygen [mol/kg]
+***********************
+name        = patm_co2
+value       = 38.0
+description = atmospheric partial pressure of CO2 [Pa]
+comment     = Schneider et.al.: CO2 partial pressure in Northeast Atlantic and adjacent shelf waters: \\Processes and seasonal variability
+***********************
+name        = q10_det_rec
+value       = 0.15
+description = q10 rule factor for recycling [1/K]
+***********************
+name        = q10_doc_rec
+value       = 0.069
+description = q10 rule factor for DOC recycling [1/K]
+***********************
+name        = q10_h2s
+value       = 0.0693
+description = q10 rule factor for oxidation of h2s and sul [1/K]
+***********************
+name        = q10_nit
+value       = 0.11
+description = q10 rule factor for nitrification [1/K]
+***********************
+name        = q10_sed_rec
+value       = 0.175
+description = q10 rule factor for detritus recycling in the sediment [1/K]
+***********************
+name        = r_biores
+value       = 0.015
+description = bio-resuspension rate [1/day]
+***********************
+name        = r_cya_assim
+value       = 0.75
+description = maximum rate for nutrient uptake of diazotroph cyanobacteria [1/day]
+***********************
+name        = r_cya_resp
+value       = 0.01
+description = respiration rate of cyanobacteria to ammonium [1/day]
+***********************
+name        = r_det_rec
+value       = 0.003
+description = recycling rate (detritus to ammonium) at 0°C [1/day]
+***********************
+name        = r_ips_burial
+value       = 0.0018
+description = final burial rate for PO4 [1/day]
+***********************
+name        = r_ips_ero
+value       = 6.0
+description = erosion rate for iron PO4 [1/day]
+***********************
+name        = r_ips_liber
+value       = 0.1
+description = PO4 liberation rate under anoxic conditions [1/day]
+***********************
+name        = r_lpp_assim
+value       = 1.38
+description = maximum rate for nutrient uptake of large-cell phytoplankton [1/day]
+***********************
+name        = r_lpp_resp
+value       = 0.075
+description = respiration rate of large phytoplankton to ammonium [1/day]
+***********************
+name        = r_lip_assim
+value       = 1.38
+description = maximum rate for nutrient uptake of limnic phytoplankton [1/day]
+***********************
+name        = r_lip_resp
+value       = 0.075
+description = respiration rate of limnic phytoplankton to ammonium [1/day]
+***********************
+name        = r_nh4_nitrif
+value       = 0.05
+description = nitrification rate at 0°C [1/day]
+***********************
+name        = r_pp_mort
+value       = 0.03
+description = mortality rate of phytoplankton [1/day]
+***********************
+name        = r_cya_mort_diff
+value       = 40.0
+description = enhanced cya mortality due to strong turbulence
+***********************
+name        = r_cya_mort_thresh
+value       = 0.02
+description = diffusivity threshold for enhanced cyano mortality
+***********************
+name        = r_sed_ero
+value       = 6.0
+description = maximum sediment detritus erosion rate [1/day]
+comment     = On one day, the benthos would be eroded 6 times if there were always erosion.
+***********************
+name        = r_sed_rec
+value       = 0.003
+description = maximum recycling rate for sedimentary detritus [1/d]
+***********************
+name        = r_sed_poc_rec
+value       = 0.0005
+description = maximum recycling rate for sedimentary POC [1/d]
+***********************
+name        = r_spp_assim
+value       = 0.4
+description = maximum rate for nutrient uptake of small-cell phytoplankton [1/day]
+***********************
+name        = r_spp_resp
+value       = 0.0175
+description = respiration rate of small phytoplankton to ammonium [1/day]
+***********************
+name        = r_zoo_graz
+value       = 0.5
+description = maximum zooplankton grazing rate [1/day]
+***********************
+name        = r_zoo_mort
+value       = 0.03
+description = mortality rate of zooplankton [1/day]
+***********************
+name        = r_zoo_resp
+value       = 0.01
+description = respiration rate of zooplankton [1/day]
+***********************
+name        = rfr_c
+value       = 6.625
+description = redfield ratio C/N
+comment     = equals 106/16
+***********************
+name        = rfr_h
+value       = 16.4375
+description = redfield ratio H/N
+comment     = equals 263/16
+***********************
+name        = rfr_o
+value       = 6.875
+description = redfield ratio O/N
+comment     = equals 110/16
+***********************
+name        = rfr_p
+value       = 0.0625
+description = redfield ratio P/N
+comment     = equals 1/16
+***********************
+name        = rfr_cp
+value       = 106.0
+description = redfield ratio C/P
+comment     = equals 106
+***********************
+name        = sali_max_cya
+value       = 8.0
+description = upper salinity limit - diazotroph cyanobacteria [psu]
+***********************
+name        = sali_min_cya
+value       = 4.0
+description = lower salinity limit - diazotroph cyanobacteria [psu]
+***********************
+name        = nit_max_cya
+value       = 0.5e-6
+description = limits cyano growth in DIN reach environment
+***********************
+name        = nit_switch_cya
+value       = 8.0
+description = strengs of DIN control for cyano growth
+***********************
+name        = sali_max_lip
+value       = 2.0
+description = lower salinity limit - limnic phytoplankton [psu]
+***********************
+name        = sed_max
+value       = 1.0
+description = maximum sediment detritus concentration that feels erosion [mol/m**2]
+comment     = in N units
+***********************
+name        = sed_burial
+value       = 1.0
+description = maximum sediment load before burial
+comment     = max sedment in mol N/m**2, more sediment will be buried\\N untis is for legacy reasons, it will be rescaled in the code to carbon by Redfield \\ratio
+***********************
+name        = spp0
+value       = 0.0045e-6
+description = seed concentration for small-cell phytoplankton [mol/kg]
+***********************
+name        = temp_min_cya
+value       = 13.5
+description = lower temperature limit - diazotroph cyanobacteria [°C]
+***********************
+name        = temp_switch_cya
+value       = 4.0
+description = strengs of temperature control for cyano growth
+***********************
+name        = temp_min_spp
+value       = 10
+description = lower temperature limit - small-cell phytoplankton [°C]
+***********************
+name        = temp_opt_zoo
+value       = 20
+description = optimal temperature for zooplankton grazing [°C]
+***********************
+name        = w_co2_stf
+value       = 4.0
+description = piston velocity for co2 surface flux [m/d]
+***********************
+name        = w_cya
+value       = 1.0
+description = vertical speed of diazotroph cyanobacteria [m/day]
+***********************
+name        = w_det
+value       = -4.5
+description = vertical speed of detritus [m/day]
+***********************
+name        = w_ipw
+value       = -1.0
+description = vertical speed of suspended iron PO4 [m/day]
+***********************
+name        = w_det_sedi
+value       = -2.25
+description = sedimentation velocity (negative for downward) [m/day]
+comment     = On one day, the lowest 2.25m of suspended detritus are deposited in the sediment. \\(=0.5*w_det)
+***********************
+name        = w_ipw_sedi
+value       = -0.5
+description = sedimentation velocity for iron PO4 [m/day]
+***********************
+name        = w_lpp
+value       = -0.5
+description = vertical speed of large-cell phytoplankton [m/day]
+***********************
+name        = w_n2_stf
+value       = 5.0
+description = piston velocity for n2 surface flux [m/d]
+***********************
+name        = w_o2_stf
+value       = 5.0
+description = piston velocity for oxygen surface flux [m/d]
+***********************
+name        = zoo0
+value       = 0.0045e-6
+description = seed concentration for zooplankton [mol/kg]
+***********************
+name        = zoo_cl
+value       = 0.09e-6
+description = zooplankton closure parameter [mol/kg]
+***********************
+name        = don_fraction
+value       = 0.0
+description = fraction of DON in respiration products
+***********************
+name        = r_poc_rec
+value       = 0.003
+description = recycling rate (poc to dic) at 0°C [1/day]
+***********************
+name        = r_pocp_rec
+value       = 0.002
+description = recycling rate (pocp to dic and po4) at 0°C [1/day]
+***********************
+name        = r_pocn_rec
+value       = 0.002
+description = recycling rate (pocn to dic and nh4) at 0°C [1/day]
+***********************
+name        = w_poc
+value       = -0.2
+description = vertical speed of poc [m/day]
+***********************
+name        = w_poc_sedi
+value       = w_poc/2.0
+description = sedimentation velocity (negative for downward) [m/day]
+***********************
+name        = w_pocp
+value       = -0.1
+description = vertical speed of pocp [m/day]
+***********************
+name        = w_pocp_sedi
+value       = w_pocp/2.0
+description = sedimentation velocity (negative for downward) [m/day]
+***********************
+name        = w_pocn
+value       = -0.1
+description = vertical speed of pocn [m/day]
+***********************
+name        = w_pocn_sedi
+value       = w_pocn/2.0
+description = sedimentation velocity (negative for downward) [m/day]
+***********************
+name        = fac_doc_assim_lpp
+value       = 1.0
+description = factor modifying DOC assimilation rate of large phytoplankton LPP
+***********************
+name        = fac_doc_assim_cya
+value       = 1.0
+description = factor modifying DOC assimilation rate of cyanobacteria
+***********************
+name        = fac_doc_assim_spp
+value       = 1.0
+description = factor modifying DOC assimilation rate of small phytoplankton SPP
+***********************
+name        = fac_doc_assim_lip
+value       = 1.0
+description = factor modifying DOC assimilation rate of limnic phytoplankton LIP
+***********************
+name        = fac_dop_assim
+value       = 0.5
+description = factor modifying assimilation rate for POCP production
+***********************
+name        = fac_don_assim
+value       = 1.0
+description = factor modifying assimilation rate for POCN production
+***********************
+name        = fac_enh_rec
+value       = 10.0
+description = enhance recyclig of DON,POCN/DOP,POCP in case of limiting DIN/DIP
+***********************
+name        = ret_po4_1
+value       = 0.1
+description = PO4 retension in oxic sediments
+***********************
+name        = ret_po4_2
+value       = 0.50
+description = additional PO4 retension in oxic sediments of the Bothnian Sea
+***********************
+name        = ret_po4_3
+value       = 0.13
+description = additional PO4 retension in oxic sediments of the Bothnian Sea
+***********************
+name        = frac_denit_scal
+value       = 1.0
+description = scaling frac_denit_sed
+***********************
+name        = reduced_rec
+value       = 0.8
+description = decrease recycling in sed under anoxia by reduce_rec
+***********************
+name        = martin_fac_poc
+value       = 0.01
+description = [1/d], depth dependence of POC sinking speed
+comment     = w = martin_fac * z
+***********************
+name        = r_doc2poc
+value       = 0.01
+description = POC formation rate
+***********************
+name        = r_don2pocn
+value       = 0.01
+description = POCN formation rate
+***********************
+name        = r_dop2pocp
+value       = 0.01
+description = POCP formation rate
+***********************
+name        = r_doc_rec
+value       = 0.001
+description = recycling rate (doc to dic) at 0°C [1/day]
+***********************
+name        = r_don_rec
+value       = 0.001
+description = recycling rate (don to dic and NH4) at 0°C [1/day]
+***********************
+name        = r_dop_rec
+value       = 0.001
+description = recycling rate (dop to dic and PO4) at 0°C [1/day]
+***********************
+name        = fac_ips_burial
+value       = 0.5
+description = reduced burial of t_ips, mimicing resolving iron-P complexes in deeper sediment and subsequent upward PO4 flux
+***********************
+name        = r_cdom_decay
+value       = 0.0035
+description = decay rate of cdom
+***********************
+name        = r_cdom_light
+value       = 40.0
+description = PAR intensity controling CDOM decay
+***********************
+name        = alk_btf_0
+value       = 0.002
+description = artifical alkalinity bottom flux constant mol/m**2/day
+***********************
+name        = alk_btf_0_BBfac
+value       = 0.25
+description = fraction of BS BFT Alk flux in BB
+***********************
+name        = alk_btf_DBBfac
+value       = 0.0
+description = Factor for alkalinity BTF below depth D2 in Bothnian Bay
+***********************
+name        = alk_btf_Dfac
+value       = 0.3
+description = Factor for alkalinity BTF below depth D2
+***********************
+name        = alk_btf_D1
+value       = 10
+description = upper depth for alkalinity dissolution from sea bed
+***********************
+name        = alk_btf_D2
+value       = 75
+description = below depth D2 alkalinity dissolution from sea bed is reduced by alk_btf_Dfac
+***********************
+name        = scales_ratio
+value       = 10
+description = Ratio of mixing timescale to photoacclimation timescale at which light memory is halfway between local light level and mixed layer average light
+***********************
+name        = tau_acc
+value       = 1
+description = Timescale for phytoplankton to acclimate to local light level [hours]
+***********************
