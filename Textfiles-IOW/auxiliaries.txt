@@ -553,17 +553,22 @@ description        = Light memory term, modifies optimal light level according t
 isOutput           = 1
 ***********************
 name               = light_mld
-formula            = cgt_lightsurf/(cgt_kappa*cgt_bottomdepth)*(1 - exp(-cgt_kappa*cgt_bottomdepth))
+formula            = cgt_lightsurf/((gamma0+cgt_kappa)*cgt_mld)*(1 - exp(-(cgt_kappa+gamma0)*cgt_mld))
 description        = Depth-averaged light level within the mixed layer
 isOutput           = 1
 ***********************
 name               = tau_mix
-formula            = (cgt_bottomdepth**2)/(cgt_diffusivity*3600)
+formula            = (cgt_mld**2)/(cgt_surfdiff*3600)
 description        = Vertical mixing timescale
 isOutput           = 1
 ***********************
 name               = phyto_diff
-formula            = cgt_diffusivity
+formula            = cgt_surfdiff
 description        = Diffusivity used in ERGOM
+isOutput           = 1
+***********************
+name               = aux_mld
+formula            = cgt_mld
+description        = Mixed layer depth
 isOutput           = 1
 ***********************
