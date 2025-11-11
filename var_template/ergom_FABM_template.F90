@@ -49,7 +49,7 @@
       type (type_bottom_state_variable_id) :: id_<name>
     </tracers>
       type (type_dependency_id)            :: id_par,id_ext,id_temp,id_salt,id_diffusivity
-      type (type_horizontal_dependency_id) :: id_I_0,id_wind,id_taub,id_surfdiff,id_mld
+      type (type_horizontal_dependency_id) :: id_par0,id_wind,id_taub,id_surfdiff,id_mld
       type (type_horizontal_dependency_id) :: id_depth, id_lat, id_lon
       type (type_global_dependency_id)     :: id_timestep
       type (type_diagnostic_variable_id)   :: id_dPAR
@@ -277,7 +277,7 @@ subroutine initialize(self,configunit)
    call self%register_dependency(self%id_par,standard_variables%downwelling_photosynthetic_radiative_flux)
    call self%register_dependency(self%id_temp,standard_variables%temperature)
    call self%register_dependency(self%id_salt,standard_variables%practical_salinity)
-   call self%register_dependency(self%id_I_0,standard_variables%surface_downwelling_photosynthetic_radiative_flux)
+   call self%register_dependency(self%id_par0,standard_variables%surface_downwelling_photosynthetic_radiative_flux)
    
    call self%register_dependency(self%id_wind,standard_variables%wind_speed)
    call self%register_dependency(self%id_depth,standard_variables%bottom_depth)
@@ -366,7 +366,7 @@ subroutine initialize(self,configunit)
 
 !   Retrieve current environmental conditions
     _GET_   (self%id_par,cgt_light)    ! local photosynthetically active radiation
-    _GET_HORIZONTAL_(self%id_I_0,cgt_lightsurf)    ! local photosynthetically active radiation
+    _GET_HORIZONTAL_(self%id_par0,cgt_lightsurf)    ! local photosynthetically active radiation
     _GET_   (self%id_ext,cgt_kappa)    ! light attenuation
     _GET_   (self%id_temp,cgt_temp)    !local water temperature
     _GET_   (self%id_salt,cgt_sali)    !local water temperature
@@ -641,7 +641,7 @@ subroutine initialize(self,configunit)
       _GET_HORIZONTAL_(self%id_lon,cgt_longitude)     ! Longitude [degE]
       _GET_HORIZONTAL_(self%id_lat,cgt_latitude)      ! Latitude  [degN]
       _GET_   (self%id_par,cgt_light)    ! local photosynthetically active radiation
-      _GET_HORIZONTAL_(self%id_I_0,cgt_lightsurf)    ! local photosynthetically active radiation
+      _GET_HORIZONTAL_(self%id_par0,cgt_lightsurf)    ! local photosynthetically active radiation
       _GET_   (self%id_diffusivity,cgt_diffusivity)    !local tracer diffusivity
       _GET_HORIZONTAL_(self%id_surfdiff,cgt_surfdiff)    !local tracer diffusivity
       _GET_HORIZONTAL_(self%id_mld,cgt_mld)    !local tracer diffusivity
@@ -851,7 +851,7 @@ subroutine initialize(self,configunit)
    ! Retrieve abiotic parameters
       _GET_HORIZONTAL_(self%id_taub,cgt_current_wave_stress)
       _GET_   (self%id_par,cgt_light) ! local photosynthetically active radiation
-      _GET_HORIZONTAL_(self%id_I_0,cgt_lightsurf) ! local photosynthetically active radiation
+      _GET_HORIZONTAL_(self%id_par0,cgt_lightsurf) ! local photosynthetically active radiation
       _GET_   (self%id_ext,cgt_kappa)      
       _GET_   (self%id_temp,cgt_temp) !local water temperature
       _GET_   (self%id_salt,cgt_sali) !local water temperature
