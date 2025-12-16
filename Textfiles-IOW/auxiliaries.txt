@@ -553,7 +553,7 @@ description        = Light memory term, modifies optimal light level according t
 isOutput           = 1
 ***********************
 name               = light_mld
-formula            = (cgt_lightsurf/((gamma0+cgt_kappa)*cgt_mld))*(1 - exp(-(cgt_kappa+gamma0)*cgt_mld))
+formula            = (cgt_lightsurf/(cgt_kappa*cgt_mld))*(1 - exp(-cgt_kappa*cgt_mld))
 description        = Depth-averaged light level within the mixed layer
 isOutput           = 1
 ***********************
