@@ -4,6 +4,8 @@
 # to generate the standard variable include files as well
 # as the text on the wiki.
 interior:
+  - name: surface_layer_attenuation
+    units: m-1
   - name: diffusivity
     units: m2 s-1 
   - name: alkalinity_expressed_as_mole_equivalent
