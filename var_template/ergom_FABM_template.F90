@@ -48,7 +48,7 @@
     <tracers vertLoc=SED>
       type (type_bottom_state_variable_id) :: id_<name>
     </tracers>
-      type (type_dependency_id)            :: id_par,id_ext,id_temp,id_salt,id_diffusivity
+      type (type_dependency_id)            :: id_par,id_ext0,id_temp,id_salt,id_diffusivity
       type (type_horizontal_dependency_id) :: id_par0,id_wind,id_taub,id_surfdiff,id_mld
       type (type_horizontal_dependency_id) :: id_depth, id_lat, id_lon
       type (type_global_dependency_id)     :: id_timestep
@@ -284,7 +284,7 @@ subroutine initialize(self,configunit)
    call self%register_dependency(self%id_taub,standard_variables%bottom_stress)
    call self%register_dependency(self%id_lat,standard_variables%latitude)
    call self%register_dependency(self%id_lon,standard_variables%longitude)
-   call self%register_dependency(self%id_ext,standard_variables%attenuation_coefficient_of_photosynthetic_radiative_flux)
+   call self%register_dependency(self%id_ext0,standard_variables%attenuation_coefficient_of_photosynthetic_radiative_flux)
    call self%register_dependency(self%id_timestep,type_global_standard_variable(name='timestep',units='s'))
    call self%register_dependency(self%id_diffusivity,type_interior_standard_variable(name='diffusivity',units='m2 s-1'))
    call self%register_dependency(self%id_surfdiff,type_horizontal_standard_variable(name='surfdiff',units='m2 s-1'))
@@ -367,7 +367,7 @@ subroutine initialize(self,configunit)
 !   Retrieve current environmental conditions
     _GET_   (self%id_par,cgt_light)    ! local photosynthetically active radiation
     _GET_HORIZONTAL_(self%id_par0,cgt_lightsurf)    ! local photosynthetically active radiation
-    _GET_   (self%id_ext,cgt_kappa)    ! light attenuation
+    _GET_   (self%id_ext0,cgt_kappa)    ! light attenuation
     _GET_   (self%id_temp,cgt_temp)    !local water temperature
     _GET_   (self%id_salt,cgt_sali)    !local water temperature
     _GET_   (self%id_diffusivity,cgt_diffusivity)    !local tracer diffusivity
@@ -645,7 +645,7 @@ subroutine initialize(self,configunit)
       _GET_   (self%id_diffusivity,cgt_diffusivity)    !local tracer diffusivity
       _GET_HORIZONTAL_(self%id_surfdiff,cgt_surfdiff)    !local tracer diffusivity
       _GET_HORIZONTAL_(self%id_mld,cgt_mld)    !local tracer diffusivity
-      _GET_   (self%id_ext,cgt_kappa)      
+      _GET_   (self%id_ext0,cgt_kappa)      
       _GET_   (self%id_temp,cgt_temp)    ! local water temperature
       _GET_   (self%id_salt,cgt_sali)    ! local water salinity
       _GET_GLOBAL_(self%id_timestep,cgt_timestep)    ! integration time step [s]
@@ -852,7 +852,7 @@ subroutine initialize(self,configunit)
       _GET_HORIZONTAL_(self%id_taub,cgt_current_wave_stress)
       _GET_   (self%id_par,cgt_light) ! local photosynthetically active radiation
       _GET_HORIZONTAL_(self%id_par0,cgt_lightsurf) ! local photosynthetically active radiation
-      _GET_   (self%id_ext,cgt_kappa)      
+      _GET_   (self%id_ext0,cgt_kappa)      
       _GET_   (self%id_temp,cgt_temp) !local water temperature
       _GET_   (self%id_salt,cgt_sali) !local water temperature
       _GET_   (self%id_diffusivity,cgt_diffusivity)    !local tracer diffusivity
