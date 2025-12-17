@@ -307,24 +307,28 @@ formula            = t_lpp+t_spp+t_lip+0.5*t_cya
 description        = suitable food for zooplankton (weighted with food preferences) [mol/kg]
 ***********************
 name               = lim_light_lpp
-temp1              = max(cgt_light/2.0,light_opt_lpp)
+temp1              = max(cgt_light/2.0,(light_opt_lpp/2.0)+(light_mem/2.0))
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for large-cell phytoplankton growth [1]
+isOutput           = 1
 ***********************
 name               = lim_light_spp
-temp1              = max(cgt_light/2.0,light_opt_spp)
+temp1              = max(cgt_light/2.0,(light_opt_spp/2.0)+(light_mem/2.0))
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for small-cell phytoplankton growth [1]
+isOutput           = 1
 ***********************
 name               = lim_light_lip
 temp1              = max(cgt_light/2.0,light_opt_lip)
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for limnic phytoplankton growth [1]
+isOutput           = 1
 ***********************
 name               = lim_light_cya
-temp1              = max(cgt_light/2.0,light_opt_cya)
+temp1              = max(cgt_light/2.0,(light_opt_cya/2.0)+(light_mem/2.0))
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for diazotroph cyanobacteria growth [1]
+isOutput           = 1
 ***********************
 name               = lr_assim_lpp
 formula            = r_lpp_assim*theta(t_o2-2*t_h2s)*min(din_sq/(din_sq+din_min_lpp*din_min_lpp),min(po4_sq/(po4_sq+din_min_lpp*din_min_lpp*rfr_p*rfr_p),lim_light_lpp))
@@ -541,4 +545,35 @@ name               = alk_btf_sw_BB
 formula            = (1 - alk_btf_l2) * (alk_btf_db1 + alk_btf_DBBfac*alk_btf_db2)
 description        = Alk bottom flux in Bothnian Bay
 vertLoc            = SED
+***********************
+name               = light_mem
+temp1              = tau_mix/tau_acc
+formula            = light_mld + (temp1/(temp1 + scales_ratio))*(cgt_light - light_mld)
+description        = Light memory term, modifies optimal light level according to history of light exposure
+isOutput           = 1
+***********************
+name               = light_mld
+formula            = (cgt_lightsurf/(cgt_kappa*cgt_mld))*(1 - exp(-cgt_kappa*cgt_mld))
+description        = Depth-averaged light level within the mixed layer
+isOutput           = 1
+***********************
+name               = tau_mix
+formula            = (cgt_mld**2)/(cgt_surfdiff*3600)
+description        = Vertical mixing timescale
+isOutput           = 1
+***********************
+name               = phyto_diff
+formula            = cgt_surfdiff
+description        = Diffusivity used in ERGOM
+isOutput           = 1
+***********************
+name               = aux_mld
+formula            = cgt_mld
+description        = Mixed layer depth
+isOutput           = 1
+***********************
+name               = light_surf
+formula            = cgt_lightsurf
+description        = Light at surface
+isOutput           = 1
 ***********************
