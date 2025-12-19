@@ -30,4 +30,4 @@ Then we assume that the irradiance memory modifies the optimal light level accor
 
 $$I_{opt} = \frac{I_{opt}^{0}}{2} + \frac{I_{mem}}{2}$$
 
-We implement this system into ERGOM
+We implement this system of equations into ERGOM, which requires some simplifications: we use only the surface diffusivity and surface attenuation coefficient etc. etc., 
