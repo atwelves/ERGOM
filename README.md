@@ -28,6 +28,6 @@ and we use Lagrangian simulations (https://github.com/atwelves/phyto_gedanken/tr
 
 Then we assume that the irradiance memory modifies the optimal light level according to 
 
-$$I_{opt} = \frac{I_{opt}^{0}}{2} + \frac{I_{mem}}{2}.
+$$I_{opt} = \frac{I_{opt}^{0}}{2} + \frac{I_{mem}}{2}$$
 
 We implement this system into ERGOM
