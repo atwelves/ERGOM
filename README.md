@@ -6,7 +6,7 @@
 - A version of the GOTM light module light.F90, modified to pass surface attenuation coefficient to FABM
 - A fabm.yaml file including the new constant $\tau_{acc}$
 - A variables.yaml file now including all the new FABM variables
-- 
+- A version of namelist_top_ref designed to run with the Gulf of Finland setup
 
 The main changes to ERGOM here are related to photo-acclimation, so that the optimal light level varies depending upon surface irradiance,
 near-surface optical depth, near-surface vertical diffusivity, and the photo-acclimation timescale of phytoplankton.  The last is added
