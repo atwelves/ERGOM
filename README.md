@@ -22,6 +22,6 @@ $$\zeta = \frac{\tau_{mix}}{\tau_{acc}} = \frac{D^{2}}{K_{z}\tau_{acc}}$$
 
 Then we hypothesize that the light exposure over timescale $\tau_{acc}$ is 
 
-$$I_{mem} - I_{mld} = \frac{\zeta}{\zeta + R} (I_{mem} - I_{mld})
+$$I_{mem} - I_{mld} = \frac{\zeta}{\zeta + R} (I_{mem} - I_{mld})$$
 
 and we use Lagrangian simulations over a range of $D$, $\tau_{acc}$ and $K_{z}$ to determine that $R \approx 10$
