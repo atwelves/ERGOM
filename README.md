@@ -24,4 +24,10 @@ Then we hypothesize that the light exposure over timescale $\tau_{acc}$ is
 
 $$I_{mem} - I_{mld} = \frac{\zeta}{\zeta + R} (I_{mem} - I_{mld})$$
 
-and we use Lagrangian simulations (https://github.com/atwelves/phyto_gedanken/tree/master) over a range of $D$, $\tau_{acc}$ and $K_{z}$ to determine that $R \approx 10$ under constant surface irradiance
+and we use Lagrangian simulations (https://github.com/atwelves/phyto_gedanken/tree/master) over a range of $D$, $\tau_{acc}$ and $K_{z}$ to determine that $R \approx 10$ under constant surface irradiance.
+
+Then we assume that the irradiance memory modifies the optimal light level according to 
+
+$$I_{opt} = \frac{I_{opt}^{0}}{2} + \frac{I_{mem}}{2}.
+
+We implement this system into ERGOM
