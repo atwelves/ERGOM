@@ -32,7 +32,7 @@ $$\zeta = \frac{\tau_{mix}}{\tau_{acc}} = \frac{D^{2}}{K_{z}\tau_{acc}}$$
 
 Then we hypothesize that the light exposure over timescale $\tau_{acc}$ differs from the mixed layer average light according to
 
-$$I_{mem} - I_{mld} = \frac{\zeta}{\zeta + R} (I_{mem} - I_{mld})$$
+$$I_{mem} - I_{mld} = \frac{\zeta}{\zeta + R} (I_{0} - I_{mld})$$
 
 and we use Lagrangian simulations (https://github.com/atwelves/phyto_gedanken/tree/master) over a range of $D$, $\tau_{acc}$ and $K_{z}$ to determine that $R \approx 10$ under constant surface irradiance.
 
