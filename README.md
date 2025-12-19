@@ -10,4 +10,6 @@ By default, ERGOM calculates light limitation based on the discrepancy between a
 
 The light which a phytoplankton bloom is exposed to on average can be estimated by considering the evolution of the light level when averaged over the mixed layer depth D.  This evolution will be a function both of changes to the surface irradiance I_0 and changes to the underwater environment (D itself, plus the attenuation coefficient k
 
-I_mld = I_0 
+I_mld = I_0 + (\gamma
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
