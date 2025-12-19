@@ -24,4 +24,4 @@ Then we hypothesize that the light exposure over timescale $\tau_{acc}$ is
 
 $$I_{mem} - I_{mld} = \frac{\zeta}{\zeta + R} (I_{mem} - I_{mld})$$
 
-and we use Lagrangian simulations over a range of $D$, $\tau_{acc}$ and $K_{z}$ to determine that $R \approx 10$
+and we use Lagrangian simulations (https://github.com/atwelves/phyto_gedanken/tree/master) over a range of $D$, $\tau_{acc}$ and $K_{z}$ to determine that $R \approx 10$ under constant surface irradiance
