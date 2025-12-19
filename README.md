@@ -11,3 +11,11 @@ By default, ERGOM calculates light limitation based on the discrepancy between a
 The light which a phytoplankton bloom is exposed to on average can be estimated by considering the evolution of the light level when averaged over the mixed layer depth D.  This evolution will be a function both of changes to the surface irradiance I_0 and changes to the underwater environment (D itself, plus the attenuation coefficient k
 
 $$I_{mld} = \frac{I_{0}}{\kappa D}(1-e^{-\kappa D})$$
+
+At the same time, the light to which individual phytoplankton cells are exposed to will vary as they are transported around the mixed layer, with a characteristic timescale
+
+$$\tau_{mix} = \frac{D^{2}}{K_{z}}$$
+
+Here we concentrate only on the impact that mixing has on light exposure, thus neglecting changes to bulk properties of the mixed layer and to the surface irradiance.  We define the ratio of mixing timescale to the acclimation timescale as 
+
+$$\zeta = \frac{\tau_{mix}}{\tau_{acc}} = \frac{D^{2}}{K_{z}\tau_{acc}}
