@@ -30,7 +30,7 @@ Here we concentrate only on the impact that mixing has on light exposure, thus n
 
 $$\zeta = \frac{\tau_{mix}}{\tau_{acc}} = \frac{D^{2}}{K_{z}\tau_{acc}}$$
 
-Then we hypothesize that the light exposure over timescale $\tau_{acc}$ is 
+Then we hypothesize that the light exposure over timescale $\tau_{acc}$ differs from the mixed layer average light according to
 
 $$I_{mem} - I_{mld} = \frac{\zeta}{\zeta + R} (I_{mem} - I_{mld})$$
 
