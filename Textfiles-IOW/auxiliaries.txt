@@ -546,12 +546,6 @@ formula            = (1 - alk_btf_l2) * (alk_btf_db1 + alk_btf_DBBfac*alk_btf_db
 description        = Alk bottom flux in Bothnian Bay
 vertLoc            = SED
 ***********************
-name               = light_mem
-temp1              = tau_mix/tau_acc
-formula            = light_mld + (temp1/(temp1 + scales_ratio))*(cgt_light - light_mld)
-description        = Light memory term, modifies optimal light level according to history of light exposure
-isOutput           = 1
-***********************
 name               = light_mld
 formula            = (cgt_lightsurf/(cgt_kappa*cgt_mld))*(1 - exp(-cgt_kappa*cgt_mld))
 description        = Depth-averaged light level within the mixed layer
@@ -575,5 +569,11 @@ isOutput           = 1
 name               = light_surf
 formula            = cgt_lightsurf
 description        = Light at surface
+isOutput           = 1
+***********************
+name               = light_mem
+temp1              = tau_mix/tau_acc
+formula            = light_mld + (temp1/(temp1 + scales_ratio))*(cgt_light - light_mld)
+description        = Light memory term, modifies optimal light level according to history of light exposure
 isOutput           = 1
 ***********************
