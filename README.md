@@ -4,6 +4,8 @@
 - A modified coupling of the NEMO-TOP module to FABM in MY_SRC/trcsms_fabm.F90, allowing NEMO to pass mixed layer depth and surface diffusivity to FABM
 - A modified ERGOM code template for FABM, including the new FABM variables: mixed layer depth, surface diffusivity and surface attenuation coefficient
 - A version of the GOTM light module light.F90, modified to pass surface attenuation coefficient to FABM
+- A fabm.yaml file including the new constant $\tau_{acc}$
+- A variables.yaml file now including all the new FABM variables
 - 
 
 The main changes to ERGOM here are related to photo-acclimation, so that the optimal light level varies depending upon surface irradiance,
