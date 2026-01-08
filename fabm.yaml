@@ -79,15 +79,15 @@ instances:
 #      w_po4_stf      : 1.5E-9
       zoo0           : 4.5E-9
       zoo_cl         : 9.0E-8
-      tau_acc        : 12
+      tau_acc        : 1
     initialization:
       t_n2   : 520.0e-6
-      t_o2   : 400.0e-6
+      t_o2   : 360.0e-6
       t_dic  : 1500.0e-6
       t_alk  : 0.00150279805529863
       t_nh4  : 0.10e-6
-      t_no3  : 10.50e-6
-      t_po4  : 1.e-6
+      t_no3  : 4.00e-6
+      t_po4  : 0.25e-6
       t_lpp  : 0.1e-6
       t_spp  : 0.1e-6
       t_cya  : 0.01e-6
