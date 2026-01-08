@@ -577,3 +577,7 @@ formula            = light_mld + (temp1/(temp1 + scales_ratio))*(cgt_light - lig
 description        = Light memory term, modifies optimal light level according to history of light exposure
 isOutput           = 1
 ***********************
+name               = redfield_ratio
+formula            = log10(t_no3/(16*t_po4))
+description        = ratio of nitrate to phosphate
+***********************
