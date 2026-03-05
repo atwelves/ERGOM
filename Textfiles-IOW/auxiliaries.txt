@@ -283,12 +283,16 @@ formula            = t_po4*t_po4
 description        = squared phosphate [mol**2/kg**2]
 ***********************
 name               = pp
-formula            = t_lpp+t_spp+t_cya
+formula            = t_lpp_fast+t_spp+t_cya
 description        = total phytoplankton [mol/kg]
 ***********************
-name               = lpp_plus_lpp0
-formula            = t_lpp+lpp0
-description        = large-cell phytoplankton plus seed concentration [mol/kg]
+name               = lpp_plus_lpp0_fast
+formula            = t_lpp_fast+lpp0
+description        = fast-growing large-cell phytoplankton plus seed concentration [mol/kg]
+***********************
+name               = lpp_plus_lpp0_slow
+formula            = t_lpp_slow+lpp0
+description        = slow-growing large-cell phytoplankton plus seed concentration [mol/kg]
 ***********************
 name               = spp_plus_spp0
 formula            = t_spp+spp0
@@ -303,17 +307,28 @@ formula            = t_cya+cya0
 description        = diazotroph cyanobacteria plus seed concentration [mol/kg]
 ***********************
 name               = food_zoo
-formula            = t_lpp+t_spp+t_lip+0.5*t_cya
+formula            = t_lpp_fast+t_spp+t_lip+0.5*t_cya
 description        = suitable food for zooplankton (weighted with food preferences) [mol/kg]
 ***********************
-name               = lim_light_lpp
-temp1              = max(cgt_light/2.0,(light_opt_lpp/2.0)+(light_mem/2.0))
+name               = light_mld
+formula            = (cgt_lightsurf/(cgt_kappa*cgt_mld))*(1 - exp(-cgt_kappa*cgt_mld))
+description        = Depth-averaged light level within the mixed layer
+isOutput           = 1
+***********************
+name               = lim_light_lpp_fast
+temp1              = acclim_lpp_fast*light_opt_lpp_fast + (1-acclim_lpp_fast)*light_mld
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
-description        = light limitation factor for large-cell phytoplankton growth [1]
+description        = light limitation factor for fast-growing large-cell phytoplankton growth [1]
+isOutput           = 1
+***********************
+name               = lim_light_lpp_slow
+temp1              = acclim_lpp_slow*light_opt_lpp_slow + (1-acclim_lpp_slow)*light_mld
+formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
+description        = light limitation factor for slow-growing large-cell phytoplankton growth [1]
 isOutput           = 1
 ***********************
 name               = lim_light_spp
-temp1              = max(cgt_light/2.0,(light_opt_spp/2.0)+(light_mem/2.0))
+temp1              = acclim_spp*light_opt_spp + (1-acclim_spp)*light_mld
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for small-cell phytoplankton growth [1]
 isOutput           = 1
@@ -325,18 +340,23 @@ description        = light limitation factor for limnic phytoplankton growth [1]
 isOutput           = 1
 ***********************
 name               = lim_light_cya
-temp1              = max(cgt_light/2.0,(light_opt_cya/2.0)+(light_mem/2.0))
+temp1              = max(cgt_light/2.0,(light_opt_cya/2.0))
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for diazotroph cyanobacteria growth [1]
 isOutput           = 1
 ***********************
-name               = lr_assim_lpp
-formula            = r_lpp_assim*theta(t_o2-2*t_h2s)*min(din_sq/(din_sq+din_min_lpp*din_min_lpp),min(po4_sq/(po4_sq+din_min_lpp*din_min_lpp*rfr_p*rfr_p),lim_light_lpp))
-description        = growth rate of large-cell phytoplankton, limited by DIN, DIP, light and oxygen [1/day]
+name               = lr_assim_lpp_fast
+formula            = r_lpp_assim_fast*theta(t_o2-2*t_h2s)*min(din_sq/(din_sq+din_min_lpp*din_min_lpp),min(po4_sq/(po4_sq+din_min_lpp*din_min_lpp*rfr_p*rfr_p),lim_light_lpp_fast))
+description        = growth rate of (fast-growing) large-cell phytoplankton, limited by DIN, DIP, light and oxygen [1/day]
+isOutput           = 1
+***********************
+name               = lr_assim_lpp_slow
+formula            = r_lpp_assim_slow*theta(t_o2-2*t_h2s)*min(din_sq/(din_sq+din_min_lpp*din_min_lpp),min(po4_sq/(po4_sq+din_min_lpp*din_min_lpp*rfr_p*rfr_p),lim_light_lpp_slow))
+description        = growth rate of (slow-growing) large-cell phytoplankton, limited by DIN, DIP, light and oxygen [1/day]
 isOutput           = 1
 ***********************
 name               = lr_assim_spp
-formula            = r_spp_assim*theta(t_o2-2*t_h2s)*min(din_sq/(din_sq+din_min_spp*din_min_spp),min(po4_sq/(po4_sq+din_min_spp*din_min_spp*rfr_p*rfr_p),lim_light_spp))*(1+temp_sq/(temp_sq+temp_min_spp*temp_min_spp))
+formula            = r_spp_assim*theta(t_o2-2*t_h2s)*min(din_sq/(din_sq+din_min_spp*din_min_spp),min(po4_sq/(po4_sq+din_min_spp*din_min_spp*rfr_p*rfr_p),lim_light_spp))
 description        = growth rate of small-cell phytoplankton, limited by DIN, DIP, light, oxygen and temperature [1/day]
 isOutput           = 1
 ***********************
@@ -349,9 +369,14 @@ formula            = r_cya_assim*theta(t_o2-2*t_h2s)*min(po4_sq/(po4_sq+dip_min_
 description        = growth rate of diazotroph cyanobacteria, limited by DIP, light, oxygen, temperature and salinity [1/day]
 isOutput           = 1
 ***********************
-name               = lr_assim_lpp_doc
-formula            = fac_doc_assim_lpp * r_lpp_assim * theta(t_o2-2*t_h2s) * min(min(1 - din_sq/(din_sq+din_min_lpp*din_min_lpp),1 - po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp)
-description        = production rate of DOC by LPP
+name               = lr_assim_lpp_doc_fast
+formula            = fac_doc_assim_lpp * r_lpp_assim_fast * theta(t_o2-2*t_h2s) * min(min(1 - din_sq/(din_sq+din_min_lpp*din_min_lpp),1 - po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp_fast)
+description        = production rate of DOC by (fast-growing) LPP
+isOutput           = 1
+***********************
+name               = lr_assim_lpp_doc_slow
+formula            = fac_doc_assim_lpp * r_lpp_assim_slow * theta(t_o2-2*t_h2s) * min(min(1 - din_sq/(din_sq+din_min_lpp*din_min_lpp),1 - po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp_slow)
+description        = production rate of DOC by (slow-growing) LPP
 isOutput           = 1
 ***********************
 name               = lr_assim_spp_doc
@@ -369,9 +394,14 @@ name               = lr_assim_lip_doc
 formula            = fac_doc_assim_lip * r_lip_assim * theta(t_o2-2*t_h2s) * min(min(1 - din_sq/(din_sq+din_min_lip*din_min_lip),1 - po4_sq/(din_min_lip*din_min_lip*rfr_p*rfr_p + po4_sq)), lim_light_lip)*(1/(1+exp(cgt_sali-sali_max_lip)))
 description        = production rate of DOC by LPP
 ***********************
-name               = lr_assim_lpp_dop
-formula            = fac_dop_assim * r_lpp_assim * theta(t_o2-2*t_h2s) * min(min(1 - din_sq/(din_sq+din_min_lpp*din_min_lpp),po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp)
-description        = production rate of DOP by LPP
+name               = lr_assim_lpp_dop_fast
+formula            = fac_dop_assim * r_lpp_assim_fast * theta(t_o2-2*t_h2s) * min(min(1 - din_sq/(din_sq+din_min_lpp*din_min_lpp),po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp_fast)
+description        = production rate of DOP by (fast-growing) LPP
+isOutput           = 1
+***********************
+name               = lr_assim_lpp_dop_slow
+formula            = fac_dop_assim * r_lpp_assim_slow * theta(t_o2-2*t_h2s) * min(min(1 - din_sq/(din_sq+din_min_lpp*din_min_lpp),po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp_slow)
+description        = production rate of DOP by (slow-growing) LPP
 isOutput           = 1
 ***********************
 name               = lr_assim_spp_dop
@@ -383,19 +413,24 @@ name               = lr_assim_lip_dop
 formula            = fac_dop_assim * r_lip_assim * theta(t_o2-2*t_h2s) * min(min(1 - din_sq/(din_sq+din_min_lip*din_min_lip),po4_sq/(din_min_lip*din_min_lip*rfr_p*rfr_p + po4_sq)), lim_light_lip)*(1/(1+exp(cgt_sali-sali_max_lip)))
 description        = production rate of DOP by LPP
 ***********************
-name               = lr_assim_lpp_don
-formula            = fac_don_assim * r_lpp_assim * theta(t_o2-2*t_h2s) * min(min(din_sq/(din_sq+din_min_lpp*din_min_lpp),1 - po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp)
-description        = production rate of DON by LPP
+name               = lr_assim_lip_don
+formula            = fac_don_assim * r_lip_assim * theta(t_o2-2*t_h2s) * min(min(din_sq/(din_sq+din_min_lip*din_min_lip),1 - po4_sq/(din_min_lip*din_min_lip*rfr_p*rfr_p + po4_sq)), lim_light_lip)*(1/(1+exp(cgt_sali-sali_max_lip)))
+description        = production rate of DON by limnic phytoplankton
+***********************
+name               = lr_assim_lpp_don_fast
+formula            = fac_don_assim * r_lpp_assim_fast * theta(t_o2-2*t_h2s) * min(min(din_sq/(din_sq+din_min_lpp*din_min_lpp),1 - po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp_fast)
+description        = production rate of DON by (fast-growing) LPP
+isOutput           = 1
+***********************
+name               = lr_assim_lpp_don_slow
+formula            = fac_don_assim * r_lpp_assim_slow * theta(t_o2-2*t_h2s) * min(min(din_sq/(din_sq+din_min_lpp*din_min_lpp),1 - po4_sq/(din_min_lpp*din_min_lpp*rfr_p*rfr_p + po4_sq)), lim_light_lpp_slow)
+description        = production rate of DON by (slow-growing) LPP
 isOutput           = 1
 ***********************
 name               = lr_assim_spp_don
 formula            = fac_don_assim * r_spp_assim * theta(t_o2-2*t_h2s) * min(min(din_sq/(din_sq+din_min_spp*din_min_spp),1 - po4_sq/(din_min_spp*din_min_spp*rfr_p*rfr_p + po4_sq)), lim_light_spp)*(1+temp_sq/(temp_sq+temp_min_spp*temp_min_spp))
 description        = production rate of DON by SPP
 isOutput           = 1
-***********************
-name               = lr_assim_lip_don
-formula            = fac_don_assim * r_lip_assim * theta(t_o2-2*t_h2s) * min(min(din_sq/(din_sq+din_min_lip*din_min_lip),1 - po4_sq/(din_min_lip*din_min_lip*rfr_p*rfr_p + po4_sq)), lim_light_lip)*(1/(1+exp(cgt_sali-sali_max_lip)))
-description        = production rate of DON by limnic phytoplankton
 ***********************
 name               = lr_graz_zoo
 formula            = r_zoo_graz*(1-exp(-food_zoo*food_zoo/(food_min_zoo*food_min_zoo)))*theta(t_o2-2*t_h2s)*(1.0+temp_sq/(temp_opt_zoo*temp_opt_zoo)*exp(2.0-cgt_temp*2.0/temp_opt_zoo))
@@ -546,11 +581,6 @@ formula            = (1 - alk_btf_l2) * (alk_btf_db1 + alk_btf_DBBfac*alk_btf_db
 description        = Alk bottom flux in Bothnian Bay
 vertLoc            = SED
 ***********************
-name               = light_mld
-formula            = (cgt_lightsurf/(cgt_kappa*cgt_mld))*(1 - exp(-cgt_kappa*cgt_mld))
-description        = Depth-averaged light level within the mixed layer
-isOutput           = 1
-***********************
 name               = tau_mix
 formula            = (cgt_mld**2)/(cgt_surfdiff*3600)
 description        = Vertical mixing timescale
@@ -569,12 +599,6 @@ isOutput           = 1
 name               = light_surf
 formula            = cgt_lightsurf
 description        = Light at surface
-isOutput           = 1
-***********************
-name               = light_mem
-temp1              = tau_mix/tau_acc
-formula            = light_mld + (temp1/(temp1 + scales_ratio))*(cgt_light - light_mld)
-description        = Light memory term, modifies optimal light level according to history of light exposure
 isOutput           = 1
 ***********************
 name               = redfield_ratio

@@ -76,17 +76,41 @@ equation    = t_dic ->
 vertLoc     = SUR
 processType = gas_exchange
 ***********************
-name        = p_no3_assim_lpp
-description = assimilation of nitrate by large-cell phytoplankton
-turnover    = lpp_plus_lpp0*lr_assim_lpp*t_no3/(din+epsilon)
-equation    = t_no3 + rfr_p*t_po4 + rfr_c*t_dic + 6.4375*h2o + 1.1875*h3oplus -> t_lpp + 8.625*t_o2
+name        = p_no3_assim_lpp_fast
+description = assimilation of nitrate by fast-growing large-cell phytoplankton
+turnover    = lpp_plus_lpp0_fast*lr_assim_lpp_fast*t_no3/(din+epsilon)
+equation    = 1.1875*h3oplus + 6.4375*h2o + rfr_c*t_dic + rfr_p*t_po4 + t_no3 -> 8.625*t_o2 + t_lpp_fast
 isOutput    = 1
 processType = BGC/pelagic/phytoplankton
 ***********************
-name        = p_nh4_assim_lpp
-description = assimilation of ammonium by large-cell phytoplankton
-turnover    = lpp_plus_lpp0*lr_assim_lpp*t_nh4/(din+epsilon)
-equation    = 7.4375*h2o + rfr_c*t_dic + rfr_p*t_po4 + t_nh4 -> 0.8125*h3oplus + 6.625*t_o2 + t_lpp
+name        = p_no3_assim_lpp_slow
+description = assimilation of nitrate by slow-growing large-cell phytoplankton
+turnover    = lpp_plus_lpp0_slow*lr_assim_lpp_slow*t_no3/(din+epsilon)
+equation    = t_no3 + rfr_p*t_po4 + rfr_c*t_dic + 6.4375*h2o + 1.1875*h3oplus -> t_lpp_slow + 8.625*t_o2
+isOutput    = 1
+processType = BGC/pelagic/phytoplankton
+***********************
+name        = p_sed_denit_nh4
+description = recycling of sedimentary detritus to ammonium using nitrate (denitrification)
+turnover    = lr_sed_rec*sed_active
+comment     = as long as there is enough nitrate, no "negative oxygen" is \\generated (2 NO3- + 2 \\H3O+ -> N2 + 3 H2O + 5/2 O2)
+equation    = t_sed + 6.1125*h3oplus + 5.3*t_no3 -> rfr_c*t_dic + rfr_p*t_po4 + t_nh4 + 2.65*t_n2 + 15.3875*h2o
+vertLoc     = SED
+processType = BGC/benthic/mineralisation
+limitation  = HARD t_o2 < 0.0
+limitation  = MMQ t_no3 > no3_min_sed_denit
+***********************
+name        = p_nh4_assim_lpp_fast
+description = assimilation of ammonium by fast-growing large-cell phytoplankton
+turnover    = lpp_plus_lpp0_fast*lr_assim_lpp_fast*t_nh4/(din+epsilon)
+equation    = t_nh4 + rfr_p*t_po4 + rfr_c*t_dic + 7.4375*h2o -> t_lpp_fast + 6.625*t_o2 + 0.8125*h3oplus
+isOutput    = 1
+processType = BGC/pelagic/phytoplankton
+***********************
+name        = p_nh4_assim_lpp_slow
+description = assimilation of ammonium by slow-growing large-cell phytoplankton
+turnover    = lpp_plus_lpp0_slow*lr_assim_lpp_slow*t_nh4/(din+epsilon)
+equation    = t_nh4 + rfr_p*t_po4 + rfr_c*t_dic + 7.4375*h2o -> t_lpp_slow + 6.625*t_o2 + 0.8125*h3oplus
 isOutput    = 1
 processType = BGC/pelagic/phytoplankton
 ***********************
@@ -123,10 +147,17 @@ equation    = 7.9375*h2o + rfr_c*t_dic + rfr_p*t_po4 + 0.5*t_n2 + 3*rfr_p*h3oplu
 isOutput    = 1
 processType = BGC/pelagic/phytoplankton
 ***********************
-name        = p_assim_lpp_doc
-description = Production of DOC by LIP
-turnover    = rfr_c * t_lpp * lr_assim_lpp_doc
+name        = p_assim_lpp_doc_fast
+description = Production of DOC by fast-growing LIP
+turnover    = rfr_c * t_lpp_fast * lr_assim_lpp_doc_fast
 comment     = CO2 + H2O -> (CH2O) + O2
+equation    = h2o + t_dic -> t_o2 + t_doc
+isOutput    = 1
+processType = BGC/pelagic/phytoplankton
+***********************
+name        = p_assim_lpp_doc_slow
+description = Production of DOC by slow-growing LIP
+turnover    = rfr_c * t_lpp_slow * lr_assim_lpp_doc_slow
 equation    = t_dic + h2o -> t_doc + t_o2
 isOutput    = 1
 processType = BGC/pelagic/phytoplankton
@@ -153,10 +184,17 @@ equation    = t_dic + h2o -> t_doc + t_o2
 isOutput    = 1
 processType = BGC/pelagic/phytoplankton
 ***********************
-name        = p_assim_lpp_dop
-description = Production of DOP by LPP
-turnover    = rfr_p * t_lpp * lr_assim_lpp_dop
+name        = p_assim_lpp_dop_fast
+description = Production of DOP by fast-growing LPP
+turnover    = rfr_p * t_lpp_fast * lr_assim_lpp_dop_fast
 comment     = 106CO2 + PO4(3-) + 106H2O +3H3O(1+) -> (CH2O)106H3PO4 + 106O2 + 3H2O
+equation    = 106*t_dic + t_po4 + 106*h2o + 3*h3oplus -> t_dop + 106*t_o2 + 3*h2o
+isOutput    = 1
+processType = BGC/pelagic/phytoplankton
+***********************
+name        = p_assim_lpp_dop_slow
+description = Production of DOP by slow-growing LPP
+turnover    = rfr_p * t_lpp_slow * lr_assim_lpp_dop_slow
 equation    = 3*h3oplus + 106*h2o + t_po4 + 106*t_dic -> 3*h2o + 106*t_o2 + t_dop
 isOutput    = 1
 processType = BGC/pelagic/phytoplankton
@@ -175,16 +213,30 @@ turnover    = rfr_p * t_lip * lr_assim_lip_dop
 equation    = 3*h3oplus + 106*h2o + t_po4 + 106*t_dic -> 3*h2o + 106*t_o2 + t_dop
 processType = BGC/pelagic/phytoplankton
 ***********************
-name        = p_nh4_assim_lpp_don
-description = Production of DON by LPP
-turnover    = t_lpp * lr_assim_lpp_don*t_nh4/(din+epsilon)
+name        = p_nh4_assim_lpp_don_fast
+description = Production of DON by fast-growing LPP
+turnover    = t_lpp_fast * lr_assim_lpp_don_fast*t_nh4/(din+epsilon)
+equation    = ohminus + 6.625*H2O + t_nh4 + rfr_c*t_dic -> H2O + 6.625*t_o2 + t_don
+isOutput    = 1
+processType = BGC/pelagic/phytoplankton
+***********************
+name        = p_nh4_assim_lpp_don_slow
+description = Production of DON by slow-growing LPP
+turnover    = t_lpp_slow * lr_assim_lpp_don_slow*t_nh4/(din+epsilon)
 equation    = rfr_c*t_dic + t_nh4 + 6.625*H2O + ohminus -> t_don + 6.625*t_o2 + H2O
 isOutput    = 1
 processType = BGC/pelagic/phytoplankton
 ***********************
-name        = p_no3_assim_lpp_don
-description = Production of DON by LPP
-turnover    = t_lpp * lr_assim_lpp_don*t_no3/(din+epsilon)
+name        = p_no3_assim_lpp_don_fast
+description = Production of DON by fast-growing LPP
+turnover    = t_lpp_fast * lr_assim_lpp_don_fast*t_no3/(din+epsilon)
+equation    = rfr_c*t_dic + t_no3 + 6.625*H2O + h3oplus -> t_don + 8.625*t_o2
+isOutput    = 1
+processType = BGC/pelagic/phytoplankton
+***********************
+name        = p_no3_assim_lpp_don_slow
+description = Production of DON by slow-growing LPP
+turnover    = t_lpp_slow * lr_assim_lpp_don_slow*t_no3/(din+epsilon)
 equation    = h3oplus + 6.625*H2O + t_no3 + rfr_c*t_dic -> 8.625*t_o2 + t_don
 isOutput    = 1
 processType = BGC/pelagic/phytoplankton
@@ -295,8 +347,8 @@ limitation  = IV t_no3 < no3_min_det_denit
 ***********************
 name        = p_lpp_graz_zoo
 description = grazing of zooplankton eating large-cell phytoplankton
-turnover    = (t_zoo+zoo0)*lr_graz_zoo*t_lpp/max(food_zoo,epsilon)
-equation    = t_lpp -> t_zoo
+turnover    = (t_zoo+zoo0)*lr_graz_zoo*t_lpp_fast/max(food_zoo,epsilon)
+equation    = t_lpp_fast -> t_zoo
 processType = BGC/pelagic/zooplankton
 ***********************
 name        = p_spp_graz_zoo
@@ -319,8 +371,8 @@ processType = BGC/pelagic/zooplankton
 ***********************
 name        = p_lpp_resp_nh4
 description = respiration of large-cell phytoplankton
-turnover    = t_lpp*r_lpp_resp
-equation    = t_lpp + 6.625*t_o2 + 0.8125*h3oplus -> don_fraction*t_don + (1-don_fraction)*t_nh4 + rfr_p*t_po4 + rfr_c*t_dic + 7.4375*h2o
+turnover    = t_lpp_fast*r_lpp_resp
+equation    = t_lpp_fast + 6.625*t_o2 + 0.8125*h3oplus -> don_fraction*t_don + (1-don_fraction)*t_nh4 + rfr_p*t_po4 + rfr_c*t_dic + 7.4375*h2o
 processType = BGC/pelagic/phytoplankton
 ***********************
 name        = p_spp_resp_nh4
@@ -349,8 +401,8 @@ processType = BGC/pelagic/zooplankton
 ***********************
 name        = p_lpp_mort_det
 description = mortality of large-cell phytoplankton
-turnover    = t_lpp*r_pp_mort*(1+9*theta(5.0e-6-t_o2))
-equation    = t_lpp -> t_det
+turnover    = t_lpp_fast*r_pp_mort*(1+9*theta(5.0e-6-t_o2))
+equation    = t_lpp_fast -> t_det
 processType = BGC/pelagic/phytoplankton
 ***********************
 name        = p_spp_mort_det
@@ -424,16 +476,6 @@ equation    = t_sed + 6.625*t_o2 + 0.8125*h3oplus -> t_nh4 + rfr_p*t_po4 + rfr_c
 vertLoc     = SED
 isOutput    = 1
 processType = BGC/benthic/mineralisation
-***********************
-name        = p_sed_denit_nh4
-description = recycling of sedimentary detritus to ammonium using nitrate (denitrification)
-turnover    = lr_sed_rec*sed_active
-comment     = as long as there is enough nitrate, no "negative oxygen" is \\generated (2 NO3- + 2 \\H3O+ -> N2 + 3 H2O + 5/2 O2)
-equation    = t_sed + 6.1125*h3oplus + 5.3*t_no3 -> rfr_c*t_dic + rfr_p*t_po4 + t_nh4 + 2.65*t_n2 + 15.3875*h2o
-vertLoc     = SED
-processType = BGC/benthic/mineralisation
-limitation  = HARD t_o2 < 0.0
-limitation  = MMQ t_no3 > no3_min_sed_denit
 ***********************
 name        = p_sed_sulf_nh4
 description = recycling of sedimentary detritus to ammonium using sulfate (sulfate reduction)

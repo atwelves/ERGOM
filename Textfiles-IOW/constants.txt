@@ -92,9 +92,9 @@ name        = light_opt_cya
 value       = 50.0
 description = optimal light for diazotroph cyanobacteria growth [W/m**2]
 ***********************
-name        = light_opt_lpp
-value       = 35.0
-description = optimal light for large-cell phytoplankton growth [W/m**2]
+name        = light_opt_lpp_slow
+value       = 40.0
+description = optimal light for slow-growing large-cell phytoplankton growth [W/m**2]
 ***********************
 name        = light_opt_spp
 value       = 50.0
@@ -189,9 +189,9 @@ name        = r_ips_liber
 value       = 0.1
 description = PO4 liberation rate under anoxic conditions [1/day]
 ***********************
-name        = r_lpp_assim
-value       = 1.38
-description = maximum rate for nutrient uptake of large-cell phytoplankton [1/day]
+name        = r_lpp_assim_fast
+value       = 1.2
+description = max growth rate for fast-growing large-cell phytoplankton [1/day]
 ***********************
 name        = r_lpp_resp
 value       = 0.075
@@ -314,7 +314,7 @@ value       = 0.0045e-6
 description = seed concentration for small-cell phytoplankton [mol/kg]
 ***********************
 name        = temp_min_cya
-value       = 13.5
+value       = 15.0
 description = lower temperature limit - diazotroph cyanobacteria [°C]
 ***********************
 name        = temp_switch_cya
@@ -527,11 +527,27 @@ name        = alk_btf_D2
 value       = 75
 description = below depth D2 alkalinity dissolution from sea bed is reduced by alk_btf_Dfac
 ***********************
-name        = scales_ratio
-value       = 10
-description = Ratio of mixing timescale to photoacclimation timescale at which light memory is halfway between local light level and mixed layer average light
+name        = alpha
+value       = 0.06
+description = initial slope of photosynthesis-irradiance curve for dark-adapted plankton
 ***********************
-name        = tau_acc
-value       = 1
-description = Timescale for phytoplankton to acclimate to local light level [hours]
+name        = r_lpp_assim_slow
+value       = 0.6
+description = max growth rate for slow-growing large-cell phytoplankton [1/day]
+***********************
+name        = light_opt_lpp_fast
+value       = 20.0
+description = optimal light for fast-growing large-cell phytoplankton growth [W/m**2]
+***********************
+name        = acclim_lpp_fast
+value       = 2.0*r_lpp_assim_fast/(alpha*light_opt_lpp_fast)
+description = ratio of optimal light for dark-adapted plankton (fast-growing large plankton) to equilibrium optimum
+***********************
+name        = acclim_lpp_slow
+value       = 2.0*r_lpp_assim_slow/(alpha*light_opt_lpp_slow)
+description = ratio of optimal light for dark-adapted plankton (slow-growing large plankton) to equilibrium optimum
+***********************
+name        = acclim_spp
+value       = 2.0*r_spp_assim/(alpha*light_opt_spp)
+description = ratio of optimal light for dark-adapted plankton (small plankton) to equilibrium optimum
 ***********************

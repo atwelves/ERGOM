@@ -214,9 +214,21 @@ contents          = 3
 vertSpeed         = w_ipw
 riverDep          = 0
 ***********************
-name              = t_lpp
-description       = large-cell phytoplankton
+name              = t_lpp_fast
+description       = large-cell phytoplankton: fast growth
 comment           = (CH2O)106(NH3)16(H3PO4)
+contents          = 5
+  N = 1
+  P = rfr_p
+  C = rfr_c
+  O = rfr_o
+  H = rfr_h
+vertSpeed         = w_lpp
+opacity           = gamma1
+riverDep          = 0
+***********************
+name              = t_lpp_slow
+description       = large-cell phytoplankton: slow growth
 contents          = 5
   N = 1
   P = rfr_p
