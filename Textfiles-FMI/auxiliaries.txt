@@ -92,7 +92,7 @@ name               = k1_h2s
 formula            = exp( -3131.42/temp_k + 5.818 + 0.368*(power(max(0.0,cgt_sali),(1.0/3.0))))
 iterations         = 1
 description        = Acid dissociation constant H2S + H2O <-> HS- + H3O+ [mol/kg]
-comment            = Goldhaber and Kaplan, 1975: Apparent dissociation constants of hydrogen sulfide in chloride \\solutions, Marine Chemistry 3 (2), 1975, pages 83–104
+comment            = Goldhaber and Kaplan, 1975: Apparent dissociation constants of hydrogen sulfide in chloride \\solutions, Marine Chemistry 3 (2), 1975, pages 83--104
 vertLoc            = SUR
 ***********************
 name               = boron_total
@@ -228,7 +228,7 @@ vertLoc            = SED
 name               = o2_sat
 formula            = (10.18e0+((5.306e-3-4.8725e-5*cgt_temp)*cgt_temp-0.2785e0)*cgt_temp+cgt_sali*((2.2258e-3+(4.39e-7*cgt_temp-4.645e-5)*cgt_temp)*cgt_temp-6.33e-2))*44.66e0*1e-6
 description        = oxygen saturation concentration [mol/kg]
-comment            = derived from \\www.helcom.fi/Monas/CombineManual2/PartB/AnnexB-\\8Appendix3.pdf\\now found under\\http://www.helcom.fi/groups/monas/CombineManual/AnnexesB/en_\\GB/annex8app3/\\ 1[ml/l] = 44.66e-6 [mmol/m³], max error < +/- 0.15 for t=0\\-36C, s=0-36psu; 1e-6 converts [mmol/m3] to [mol/kg]
+comment            = derived from \\www.helcom.fi/Monas/CombineManual2/PartB/AnnexB-\\8Appendix3.pdf\\now found under\\http://www.helcom.fi/groups/monas/CombineManual/AnnexesB/en_\\GB/annex8app3/\\ 1[ml/l] = 44.66e-6 [mmol/m3], max error < +/- 0.15 for t=0\\-36C, s=0-36psu; 1e-6 converts [mmol/m3] to [mol/kg]
 ***********************
 name               = solubility_o2
 formula            = o2_sat*4.71265e-5
@@ -248,7 +248,7 @@ temp2              = temp1*temp1
 temp3              = temp2*temp1
 formula            = 1e-6*exp(6.42931 + 2.92704*temp1 + 4.32531*temp2 + 4.69149*temp3 + cgt_sali*(0.0 -7.44129e-3 - 8.02566e-3*temp1 - 1.46775e-2*temp2))
 description        = dissolved molecular nitrogen saturation concentration [mol/kg]
-comment            = Hamme, R.C., Emerson, S.R., 2004. The solubility of neon, nitrogen and argon in distilled \\water and seawater. Deep Sea Res I Oceanogr Res Pap. 51 (11), 1517–1528.
+comment            = Hamme, R.C., Emerson, S.R., 2004. The solubility of neon, nitrogen and argon in distilled \\water and seawater. Deep Sea Res I Oceanogr Res Pap. 51 (11), 1517--1528.
 ***********************
 name               = solubility_n2
 formula            = n2_sat * 1.263925e-5
@@ -264,7 +264,7 @@ isOutput           = 1
 ***********************
 name               = temp_sq
 formula            = max(0.0,cgt_temp)*max(0.0,cgt_temp)
-description        = square of positive temperature [°C * °C]
+description        = square of positive temperature [degC * degC]
 ***********************
 name               = zoo_eff
 formula            = t_zoo*t_zoo/zoo_cl
@@ -307,28 +307,24 @@ formula            = t_lpp+t_spp+t_lip+0.5*t_cya
 description        = suitable food for zooplankton (weighted with food preferences) [mol/kg]
 ***********************
 name               = lim_light_lpp
-temp1              = max(cgt_light/2.0,(light_opt_lpp/2.0)+(light_mem/2.0))
+temp1              = max(cgt_light/2.0,light_opt_lpp)
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for large-cell phytoplankton growth [1]
-isOutput           = 1
 ***********************
 name               = lim_light_spp
-temp1              = max(cgt_light/2.0,(light_opt_spp/2.0)+(light_mem/2.0))
+temp1              = max(cgt_light/2.0,light_opt_spp)
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for small-cell phytoplankton growth [1]
-isOutput           = 1
 ***********************
 name               = lim_light_lip
 temp1              = max(cgt_light/2.0,light_opt_lip)
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for limnic phytoplankton growth [1]
-isOutput           = 1
 ***********************
 name               = lim_light_cya
-temp1              = max(cgt_light/2.0,(light_opt_cya/2.0)+(light_mem/2.0))
+temp1              = max(cgt_light/2.0,light_opt_cya)
 formula            = cgt_light/temp1*exp(1-cgt_light/temp1)
 description        = light limitation factor for diazotroph cyanobacteria growth [1]
-isOutput           = 1
 ***********************
 name               = lr_assim_lpp
 formula            = r_lpp_assim*theta(t_o2-2*t_h2s)*min(din_sq/(din_sq+din_min_lpp*din_min_lpp),min(po4_sq/(po4_sq+din_min_lpp*din_min_lpp*rfr_p*rfr_p),lim_light_lpp))
@@ -545,39 +541,4 @@ name               = alk_btf_sw_BB
 formula            = (1 - alk_btf_l2) * (alk_btf_db1 + alk_btf_DBBfac*alk_btf_db2)
 description        = Alk bottom flux in Bothnian Bay
 vertLoc            = SED
-***********************
-name               = light_mld
-formula            = (cgt_lightsurf/(cgt_kappa*cgt_mld))*(1 - exp(-cgt_kappa*cgt_mld))
-description        = Depth-averaged light level within the mixed layer
-isOutput           = 1
-***********************
-name               = tau_mix
-formula            = (cgt_mld**2)/(cgt_surfdiff*3600)
-description        = Vertical mixing timescale
-isOutput           = 1
-***********************
-name               = phyto_diff
-formula            = cgt_surfdiff
-description        = Diffusivity used in ERGOM
-isOutput           = 1
-***********************
-name               = aux_mld
-formula            = cgt_mld
-description        = Mixed layer depth
-isOutput           = 1
-***********************
-name               = light_surf
-formula            = cgt_lightsurf
-description        = Light at surface
-isOutput           = 1
-***********************
-name               = light_mem
-temp1              = tau_mix/tau_acc
-formula            = light_mld + (temp1/(temp1 + scales_ratio))*(cgt_light - light_mld)
-description        = Light memory term, modifies optimal light level according to history of light exposure
-isOutput           = 1
-***********************
-name               = redfield_ratio
-formula            = log10(t_no3/(16*t_po4))
-description        = ratio of nitrate to phosphate
 ***********************

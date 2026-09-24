@@ -236,9 +236,7 @@ contents          = 5
   C = rfr_c
   O = rfr_o
   H = rfr_h
-isOutput          = 0
 opacity           = gamma1
-isOutput          = 0
 longname          = limnic phytoplankton
 ***********************
 name              = t_cya

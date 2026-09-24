@@ -32,12 +32,9 @@ version           = CDOM 1.3b limnic phytoplankton, alk. generation in BB and BS
 description       = Ecological ReGional Ocean Model
 author            = Thomas Neumann, Hagen Radtke, Martin Schmidt
 contact           = thomas.neumann@io-warnemuende.de, hagen.radtke@io-warnemuende.de
-templatePath      = /home/twelves/wiki_ergom/var_template/
-outputPath        = /home/twelves/wiki_ergom/output/
-autoLimitProcesses = 0
+templatePath      = C:\Daten\Modelle\ERGOM\git-clone\Templates\MOM\6.0\
+outputPath        = C:\Daten\Modelle\ERGOM\GeneratedCode\MOM6\ERGOM_pLimnic_Alk\
 autoSortMoving    = 1
 autoSplitColors   = 0
-realSuffixF90     = 8
 autoUnixOutput    = 1
-conversionFactorSED = 1
 comment              = \\inactiveProcessTypes = gas_exchange\\we have set conversionFactorSED=  "1" for MOM6, conversion is handled in the Template file\\set back to standard for other hosts\\and it is not useable for vertically resolved SED. Consider it as a develpment stage.
