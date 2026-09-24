@@ -1,9 +1,9 @@
 # Branch Information
 
-| This branch                     | Textfiles-IOW/alk_flux                     |
+| This branch                     | Textfiles-FMI/pika-ergom                     |
 |---------------------------------|--------------------------------------------|
-| Preceding Branch                | <!--PB-->Textfiles-IOW/cdom<!--/PB-->      |
-| Main Changes                    | <!--MC-->Added a fourth phytoplankton type (limnic phytoplankton). Added calcite dissolution in till sediments to correct for alkalinity underestimation.<!--/MC--> |
-| Author(s)                       | <!--AU-->Thomas Neumann<!--/AU-->          |
-| State Variables (tracers) Added | <!--SV-->t_lip<!--/SV-->                   |
+| Preceding Branch                | <!--PB-->Textfiles-IOW/alk-flux<!--/PB-->      |
+| Main Changes                    | <!--MC-->Tuning of growth parameters<!--/MC--> |
+| Author(s)                       | <!--AU-->Andrew Twelves<!--/AU-->          |
+| State Variables (tracers) Added | <!--SV--><!--/SV-->                   |
 | References                      | <!--REF--><https://doi.org/10.5194/egusphere-2024-3734>, <https://doi.org/10.3389/fclim.2025.1450468><!--/REF--> |
