@@ -2,7 +2,7 @@
 
 | This branch                     | Textfiles-FMI/pika-ergom                     |
 |---------------------------------|--------------------------------------------|
-| Preceding Branch                | <!--PB-->Textfiles-IOW/alk-flux<!--/PB-->      |
+| Preceding Branch                | <!--PB-->Textfiles-IOW/alk_flux<!--/PB-->      |
 | Main Changes                    | <!--MC-->Tuning of growth parameters<!--/MC--> |
 | Author(s)                       | <!--AU-->Andrew Twelves<!--/AU-->          |
 | State Variables (tracers) Added | <!--SV--><!--/SV-->                   |
