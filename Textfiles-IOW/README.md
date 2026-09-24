@@ -1,8 +1,8 @@
 # Branch Information
 
-| This branch                     | Textfiles-IOW/alk_flux                     |
+| This branch                     | Textfiles-IOW/main                     |
 |---------------------------------|--------------------------------------------|
-| Preceding Branch                | <!--PB-->Textfiles-IOW/cdom<!--/PB-->      |
+| Preceding Branch                | <!--PB-->Textfiles-IOW/alk_flux<!--/PB-->      |
 | Main Changes                    | <!--MC-->Added a fourth phytoplankton type (limnic phytoplankton). Added calcite dissolution in till sediments to correct for alkalinity underestimation.<!--/MC--> |
 | Author(s)                       | <!--AU-->Thomas Neumann<!--/AU-->          |
 | State Variables (tracers) Added | <!--SV-->t_lip<!--/SV-->                   |
