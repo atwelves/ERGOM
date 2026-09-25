@@ -1,6 +1,6 @@
 # Branch Information
 
-| This branch                     | Textfiles-FMI/pika-ergom                     |
+| This branch                     | Textfiles-FMI/thermocline                     |
 |---------------------------------|--------------------------------------------|
 | Preceding Branch                | <!--PB-->Textfiles-IOW/alk_flux<!--/PB-->      |
 | Main Changes                    | <!--MC-->Tuning of growth parameters<!--/MC--> |
