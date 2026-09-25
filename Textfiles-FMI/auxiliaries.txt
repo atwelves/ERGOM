@@ -542,3 +542,10 @@ formula            = (1 - alk_btf_l2) * (alk_btf_db1 + alk_btf_DBBfac*alk_btf_db
 description        = Alk bottom flux in Bothnian Bay
 vertLoc            = SED
 ***********************
+name               = w_det
+temp1              = -min(cgt_dTdz,0)
+temp2              = temp1/(temp1 + K_sink)
+temp3              = (1-temp1)*(1-temp1)
+formula            = w_det_mixed*temp3
+description        = Variable detrital sinking speed
+***********************

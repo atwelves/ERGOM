@@ -337,7 +337,7 @@ name        = w_cya
 value       = 0.0
 description = vertical speed of diazotroph cyanobacteria [m/day]
 ***********************
-name        = w_det
+name        = w_det_mixed
 value       = -4.5
 description = vertical speed of detritus [m/day]
 ***********************
