@@ -1,6 +1,6 @@
 # Branch Information
 
-| This branch                     | Textfiles-FMI/diatoms                     |
+| This branch                     | Textfiles-FMI/2diatoms                     |
 |---------------------------------|--------------------------------------------|
 | Preceding Branch                | <!--PB-->Textfiles-IOW/alk_flux<!--/PB-->      |
 | Main Changes                    | <!--MC-->Added a second diatom type with different growth parameters<!--/MC--> |
