@@ -48,8 +48,8 @@
     <tracers vertLoc=SED>
       type (type_bottom_state_variable_id) :: id_<name>
     </tracers>
-      type (type_dependency_id)            :: id_par,id_ext0,id_temp,id_salt,id_diffusivity
-      type (type_horizontal_dependency_id) :: id_par0,id_wind,id_taub,id_surfdiff,id_mld
+      type (type_dependency_id)            :: id_par,id_temp,id_salt,id_diffusivity,id_dTdz
+      type (type_horizontal_dependency_id) :: id_I_0,id_wind,id_taub
       type (type_horizontal_dependency_id) :: id_depth, id_lat, id_lon
       type (type_global_dependency_id)     :: id_timestep
       type (type_diagnostic_variable_id)   :: id_dPAR
@@ -178,6 +178,7 @@ subroutine initialize(self,configunit)
  </tracers>
    real(rk)           :: cgt_timestep=1.0  ! ecosystem model time step [d]
    real(rk)           :: w_poc_var
+   real(rk)           :: w_det
    real(rk), parameter:: secs_pr_day=86400.0_rk
 
 !   integer            :: cgt_iteration        ! current number of iteration in the iterative loop
@@ -201,6 +202,7 @@ subroutine initialize(self,configunit)
 
 
 !  Register state variables
+
  <tracers vertLoc=WAT>
    call self%register_state_variable(self%id_<name>,'<trimName>','mol/kg', &
          '<description>', <trimName>_initial &
@@ -277,18 +279,17 @@ subroutine initialize(self,configunit)
    call self%register_dependency(self%id_par,standard_variables%downwelling_photosynthetic_radiative_flux)
    call self%register_dependency(self%id_temp,standard_variables%temperature)
    call self%register_dependency(self%id_salt,standard_variables%practical_salinity)
-   call self%register_dependency(self%id_par0,standard_variables%surface_downwelling_photosynthetic_radiative_flux)
-   
+   call self%register_dependency(self%id_I_0,standard_variables%surface_downwelling_photosynthetic_radiative_flux)
    call self%register_dependency(self%id_wind,standard_variables%wind_speed)
    call self%register_dependency(self%id_depth,standard_variables%bottom_depth)
    call self%register_dependency(self%id_taub,standard_variables%bottom_stress)
    call self%register_dependency(self%id_lat,standard_variables%latitude)
    call self%register_dependency(self%id_lon,standard_variables%longitude)
-   call self%register_dependency(self%id_ext0,standard_variables%attenuation_coefficient_of_photosynthetic_radiative_flux)
+
    call self%register_dependency(self%id_timestep,type_global_standard_variable(name='timestep',units='s'))
    call self%register_dependency(self%id_diffusivity,type_interior_standard_variable(name='diffusivity',units='m2 s-1'))
-   call self%register_dependency(self%id_surfdiff,type_horizontal_standard_variable(name='surfdiff',units='m2 s-1'))
-   call self%register_dependency(self%id_mld,type_horizontal_standard_variable(name='mld',units='m'))
+   call self%register_dependency(self%id_dTdz,type_interior_standard_variable(name='dTdz',units='degree C m-1'))
+
    return
 
    END subroutine initialize
@@ -332,15 +333,12 @@ subroutine initialize(self,configunit)
     real(rk)        :: cgt_temp
     real(rk)        :: cgt_sali
     real(rk)        :: cgt_light
-    real(rk)        :: cgt_lightsurf
-    real(rk)        :: cgt_kappa
     real(rk)        :: cgt_density
     real(rk)        :: cgt_longitude
     real(rk)        :: cgt_latitude
     real(rk)        :: cgt_timestep
     real(rk)        :: cgt_diffusivity
-    real(rk)        :: cgt_surfdiff
-    real(rk)        :: cgt_mld
+    real(rk)        :: cgt_dTdz
     real(rk)        :: cgt_bottomdepth
     real(rk)        :: secs_pr_day=86400.0_rk
     real(rk)        :: inv_secs_pr_day
@@ -366,13 +364,10 @@ subroutine initialize(self,configunit)
 
 !   Retrieve current environmental conditions
     _GET_   (self%id_par,cgt_light)    ! local photosynthetically active radiation
-    _GET_HORIZONTAL_(self%id_par0,cgt_lightsurf)    ! local photosynthetically active radiation
-    _GET_   (self%id_ext0,cgt_kappa)    ! light attenuation
     _GET_   (self%id_temp,cgt_temp)    !local water temperature
     _GET_   (self%id_salt,cgt_sali)    !local water temperature
     _GET_   (self%id_diffusivity,cgt_diffusivity)    !local tracer diffusivity
-    _GET_HORIZONTAL_(self%id_surfdiff,cgt_surfdiff)    !local tracer diffusivity
-    _GET_HORIZONTAL_(self%id_mld,cgt_mld)    !local tracer diffusivity
+    _GET_   (self%id_dTdz,cgt_dTdz)    !local temperature gradient
     _GET_GLOBAL_(self%id_timestep,cgt_timestep)    ! integration time step [s]
     _GET_HORIZONTAL_(self%id_lon,cgt_longitude)! Longitude [degE]
     _GET_HORIZONTAL_(self%id_lat,cgt_latitude) ! Latitude  [degN]
@@ -437,8 +432,6 @@ subroutine initialize(self,configunit)
 !   Calculation of process rates
   <processes vertLoc=WAT>
     <name> = <turnover>
-    ! 23.10
-    <name> = max(<name>,0.0)
   </processes>
 
 !   Calculation of late auxiliary variables
@@ -603,18 +596,14 @@ subroutine initialize(self,configunit)
  </processes>
    real(rk)                   :: cgt_temp
    real(rk)                   :: cgt_sali
+   real(rk)                   :: cgt_dTdz
    real(rk)                   :: cgt_light
-   real(rk)                   :: cgt_lightsurf
-   real(rk)                   :: cgt_kappa   
    real(rk)                   :: cgt_density
    real(rk)                   :: cgt_longitude
    real(rk)                   :: cgt_latitude
    real(rk)                   :: cgt_current_wave_stress
    real(rk)                   :: cgt_bottomdepth
    real(rk)                   :: cgt_timestep
-   real(rk)                   :: cgt_diffusivity
-   real(rk)                   :: cgt_surfdiff
-   real(rk)                   :: cgt_mld
    real(rk)                   :: temp1, temp2, temp3, temp4, temp5, &
                                  temp6, temp7, temp8, temp9
    real(rk)                   :: inv_secs_pr_day
@@ -641,13 +630,9 @@ subroutine initialize(self,configunit)
       _GET_HORIZONTAL_(self%id_lon,cgt_longitude)     ! Longitude [degE]
       _GET_HORIZONTAL_(self%id_lat,cgt_latitude)      ! Latitude  [degN]
       _GET_   (self%id_par,cgt_light)    ! local photosynthetically active radiation
-      _GET_HORIZONTAL_(self%id_par0,cgt_lightsurf)    ! local photosynthetically active radiation
-      _GET_   (self%id_diffusivity,cgt_diffusivity)    !local tracer diffusivity
-      _GET_HORIZONTAL_(self%id_surfdiff,cgt_surfdiff)    !local tracer diffusivity
-      _GET_HORIZONTAL_(self%id_mld,cgt_mld)    !local tracer diffusivity
-      _GET_   (self%id_ext0,cgt_kappa)      
       _GET_   (self%id_temp,cgt_temp)    ! local water temperature
       _GET_   (self%id_salt,cgt_sali)    ! local water salinity
+      _GET_   (self%id_dTdz,cgt_dTdz)    ! temperature gradient
       _GET_GLOBAL_(self%id_timestep,cgt_timestep)    ! integration time step [s]
       cgt_density   = 1035.0_rk          ! Boussinesq density
       cgt_timestep  = cgt_timestep/secs_pr_day  ! ecosystem model time step [d]
@@ -746,8 +731,6 @@ subroutine initialize(self,configunit)
    ! Calculate process rates
    <processes vertLoc=SED>
        <name> = <turnover>
-       ! 23.10
-       <name> = max(<name>,0.0)
    </processes>
 
    ! Apply time tendencies to tracers
@@ -819,17 +802,13 @@ subroutine initialize(self,configunit)
  </processes>
    real(rk)                   :: cgt_temp
    real(rk)                   :: cgt_sali
+   real(rk)                   :: cgt_dTdz
    real(rk)                   :: cgt_light
-   real(rk)                   :: cgt_lightsurf
-   real(rk)                   :: cgt_kappa
    real(rk)                   :: cgt_density
    real(rk)                   :: cgt_longitude
    real(rk)                   :: cgt_latitude
    real(rk)                   :: cgt_current_wave_stress
    real(rk)                   :: cgt_timestep
-   real(rk)                   :: cgt_diffusivity
-   real(rk)                   :: cgt_surfdiff
-   real(rk)                   :: cgt_mld
    real(rk)                   :: cgt_bottomdepth
    real(rk)                   :: cgt_wind
    real(rk)                   :: temp1, temp2, temp3, temp4, temp5, &
@@ -851,13 +830,9 @@ subroutine initialize(self,configunit)
    ! Retrieve abiotic parameters
       _GET_HORIZONTAL_(self%id_taub,cgt_current_wave_stress)
       _GET_   (self%id_par,cgt_light) ! local photosynthetically active radiation
-      _GET_HORIZONTAL_(self%id_par0,cgt_lightsurf) ! local photosynthetically active radiation
-      _GET_   (self%id_ext0,cgt_kappa)      
       _GET_   (self%id_temp,cgt_temp) !local water temperature
       _GET_   (self%id_salt,cgt_sali) !local water temperature
-      _GET_   (self%id_diffusivity,cgt_diffusivity)    !local tracer diffusivity
-      _GET_HORIZONTAL_(self%id_surfdiff,cgt_surfdiff)    !local tracer diffusivity
-      _GET_HORIZONTAL_(self%id_mld,cgt_mld)    !local tracer diffusivity
+      _GET_   (self%id_dTdz,cgt_dTdz) ! temperature gradient
       _GET_GLOBAL_(self%id_timestep,cgt_timestep) !integration time step [s]
       _GET_HORIZONTAL_(self%id_lon,cgt_longitude)! Longitude [degE]
       _GET_HORIZONTAL_(self%id_lat,cgt_latitude) ! Latitude  [degN]
@@ -956,8 +931,6 @@ subroutine initialize(self,configunit)
    ! Calculate process rates
    <processes vertLoc=SUR>
        <name> = <turnover>
-       ! 23.10
-       <name> = max(<name>,0.0)
    </processes>
 
    <auxiliaries vertLoc=SUR; calcAfterProcesses=1; iterations=0>
