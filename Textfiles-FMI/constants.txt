@@ -322,7 +322,7 @@ value       = 4.0
 description = strengs of temperature control for cyano growth
 ***********************
 name        = temp_min_spp
-value       = 0.0
+value       = 1.0e-6
 description = lower temperature limit - small-cell phytoplankton [°C]
 ***********************
 name        = temp_opt_zoo
